@@ -23,7 +23,7 @@ MainWindow::MainWindow(QWidget *parent) :
     std::string accessTokenSecret = this->settings->
             value("Twitter/ACCESS_TOKEN_SECRET", "").toString().toStdString();
     std::string userName, passWord;
-    if (accessTokenKey.empty() || accessTokenSecret.empty()) {
+    if (!t.login(accessTokenKey, accessTokenSecret, userName, passWord)) {
         LoginDialog *l = new LoginDialog(this);
         while (!t.login(accessTokenKey, accessTokenSecret, userName, passWord)) {
             int r = l->exec();
@@ -42,18 +42,23 @@ MainWindow::MainWindow(QWidget *parent) :
         this->settings->setValue("Twitter/ACCESS_TOKEN_SECRET",
                                  QString::fromStdString(accessTokenSecret));
     }
+    t.getTimeLine();
 
     QStringListModel *model = new QStringListModel();
     QStringList qlist;
-    qlist << "hoge";
-    qlist << "huga";
-    qlist << "foo";
-    qlist << "bar";
+//    qlist << "hoge";
+//    qlist << "huga";
+//    qlist << "foo";
+//    qlist << "bar";
+    for (int i = 0; i < 20; i++) {
+        qlist << QString(QString::number(i));
+    }
 
     model->setStringList(qlist);
 
     ui->listView->setModel(model);
     ui->listView->setItemDelegate(new ListDelegate(ui->listWidget));
+    ui->listView->scrollTo(model->index(10));
 //    QListWidgetItem *item = new QListWidgetItem();
 //    item->setData(Qt::DisplayRole, "Title");
 //    item->setData(Qt::UserRole + 1, "Description");
@@ -68,4 +73,7 @@ MainWindow::~MainWindow()
 void MainWindow::on_quitButton_clicked()
 {
     QCoreApplication::quit();
+//    static int i = 0;
+//    QStringListModel *model = (QStringListModel*)ui->listView->model();
+//    ui->listView->scrollTo(model->index(i++));
 }

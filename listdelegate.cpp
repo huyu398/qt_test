@@ -78,7 +78,7 @@ void ListDelegate::paint ( QPainter * painter, const QStyleOptionViewItem & opti
 }
 
 QSize ListDelegate::sizeHint ( const QStyleOptionViewItem & option, const QModelIndex & index ) const{
-    return QSize(200, 30 + index.row() * 10); // very dumb value
+    return QSize(200, 30); // very dumb value
 }
 
 ListDelegate::~ListDelegate()

@@ -23,13 +23,15 @@ SOURCES += main.cpp\
     twitter.cpp \
     customdelegate.cpp \
     listdelegate.cpp \
-    logindialog.cpp
+    logindialog.cpp \
+    tweet.cpp
 
 HEADERS  += mainwindow.h \
     twitter.h \
     customdelegate.h \
     listdelegate.h \
-    logindialog.h
+    logindialog.h \
+    tweet.h
 
 FORMS    += mainwindow.ui \
     logindialog.ui

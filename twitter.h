@@ -3,6 +3,8 @@
 
 #include <twitcurl.h>
 
+#include "tweet.h"
+
 class Twitter
 {
 public:
@@ -10,13 +12,12 @@ public:
     bool connect();
     bool login(std::string &accessTokenKey, std::string &accessTokenSecret,
                std::string userName, std::string passWord);
-    const char* getTimeLine();
+    std::list<Tweet>* getTimeLine();
 
 private:
     twitCurl twitterObj;
     std::string consumerKey = "hUhGxoavwt9iGnQxUSe8a3xgf";
     std::string consumerSecret = "b3BXefp6YBXMgV2e260jtOsfBVajckilONdrIPt9XiEwGXGLZs";
-    std::string accessTokenKey, accessTokenSecret;
 };
 
 #endif // TWITTER_H
