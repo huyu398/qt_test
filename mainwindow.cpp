@@ -4,7 +4,9 @@
 #include <qstringlistmodel.h>
 
 #include "twitter.h"
+#include "tweet.h"
 #include "listdelegate.h"
+#include "qtweetlistmodel.h"
 #include "logindialog.h"
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -42,23 +44,26 @@ MainWindow::MainWindow(QWidget *parent) :
         this->settings->setValue("Twitter/ACCESS_TOKEN_SECRET",
                                  QString::fromStdString(accessTokenSecret));
     }
-    t.getTimeLine();
-
-    QStringListModel *model = new QStringListModel();
-    QStringList qlist;
-//    qlist << "hoge";
-//    qlist << "huga";
-//    qlist << "foo";
-//    qlist << "bar";
-    for (int i = 0; i < 20; i++) {
-        qlist << QString(QString::number(i));
+    std::list<Tweet> *_tweetList = t.getTimeLine();
+    QList<Tweet> tweetList;
+    for (std::list<Tweet>::iterator it = _tweetList->begin(); it != _tweetList->end(); it++) {
+        tweetList << *it;
     }
 
-    model->setStringList(qlist);
+    QTweetListModel *tweetListModel = new QTweetListModel;
+    tweetListModel->setTweetList(tweetList);
 
-    ui->listView->setModel(model);
+//    QStringListModel *model = new QStringListModel();
+//    QStringList qlist;
+//    for (int i = 0; i < 20; i++) {
+//        qlist << QString(QString::number(i));
+//    }
+
+//    model->setStringList(qlist);
+
+    ui->listView->setModel(tweetListModel);
     ui->listView->setItemDelegate(new ListDelegate(ui->listWidget));
-    ui->listView->scrollTo(model->index(10));
+    ui->listView->scrollTo(tweetListModel->index(10));
 //    QListWidgetItem *item = new QListWidgetItem();
 //    item->setData(Qt::DisplayRole, "Title");
 //    item->setData(Qt::UserRole + 1, "Description");

@@ -13,10 +13,10 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = qt_test
 TEMPLATE = app
 
-INCLUDEPATH += /usr \
-            /home/huyu/git/picojson
+unix:INCLUDEPATH += /usr \
+            /home/huyu/git/json/src
 
-win32:INCLUDEPATH +=  $$PWD/../picojson
+win32:INCLUDEPATH +=  $$PWD/../json/src
 
 SOURCES += main.cpp\
         mainwindow.cpp \
@@ -24,14 +24,16 @@ SOURCES += main.cpp\
     customdelegate.cpp \
     listdelegate.cpp \
     logindialog.cpp \
-    tweet.cpp
+    tweet.cpp \
+    qtweetlistmodel.cpp
 
 HEADERS  += mainwindow.h \
     twitter.h \
     customdelegate.h \
     listdelegate.h \
     logindialog.h \
-    tweet.h
+    tweet.h \
+    qtweetlistmodel.h
 
 FORMS    += mainwindow.ui \
     logindialog.ui
@@ -40,10 +42,10 @@ unix:!macx: LIBS += -ltwitcurl
 
 win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../twitcurl/libtwitcurl/release/ -ltwitcurl
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../twitcurl/libtwitcurl/debug/ -ltwitcurl
-LIBS += -L$$PWD/../twitcurl/libtwitcurl/lib/ -llibcurl
+win32:LIBS += -L$$PWD/../twitcurl/libtwitcurl/lib/ -llibcurl
 
-INCLUDEPATH += $$PWD/../twitcurl/libtwitcurl
-DEPENDPATH += $$PWD/../twitcurl/libtwitcurl
+win32:INCLUDEPATH += $$PWD/../twitcurl/libtwitcurl
+win32:DEPENDPATH += $$PWD/../twitcurl/libtwitcurl
 
 win32-g++:CONFIG(release, debug|release): PRE_TARGETDEPS += $$PWD/../twitcurl/libtwitcurl/release/libtwitcurl.a
 else:win32-g++:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$PWD/../twitcurl/libtwitcurl/debug/libtwitcurl.a

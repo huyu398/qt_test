@@ -2,13 +2,14 @@
 #define TWEET_H
 
 #include <string>
+#include <QString>
 
 class Tweet
 {
 public:
     Tweet(std::string userName, std::string tweetContent);
-    std::string getUserName();
-    std::string getTweetContent();
+    QString getUserName();
+    QString getTweetContent();
 
 private:
     std::string userName;

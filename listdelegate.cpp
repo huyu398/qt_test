@@ -57,8 +57,8 @@ void ListDelegate::paint ( QPainter * painter, const QStyleOptionViewItem & opti
 
     //GET TITLE, DESCRIPTION AND ICON
     QIcon ic = QIcon(qvariant_cast<QPixmap>(index.data(Qt::DecorationRole)));
-    QString title = index.data(Qt::DisplayRole).toString();
-    QString description = index.data(Qt::UserRole + 1).toString();
+    QString title = index.data(Qt::UserRole + 1).toString();
+    QString description = index.data(Qt::UserRole + 2).toString();
 
     int imageSpace = 10;
     if (!ic.isNull()) {

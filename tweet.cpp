@@ -5,10 +5,10 @@ Tweet::Tweet(std::string userName, std::string tweetContent)
 {
 }
 
-std::string Tweet::getUserName() {
-    return this->userName;
+QString Tweet::getUserName() {
+    return QString::fromStdString(this->userName);
 }
 
-std::string Tweet::getTweetContent() {
-    return this->tweetContent;
+QString Tweet::getTweetContent() {
+    return QString::fromStdString(this->tweetContent);
 }
