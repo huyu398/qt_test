@@ -72,3 +72,21 @@ std::list<Tweet>* Twitter::getTimeLine()
 
     return tweetList;
 }
+
+void Twitter::setupStreaming()
+{
+    twitCurlTypes::fpStreamApiCallback func = &showStreamingData;
+    std::string testData = "foobar";
+    this->twitterObj.SetStreamApiCallback(func, (void*)&testData);
+}
+
+bool Twitter::callStreamingAPI()
+{
+    return this->twitterObj.PublicSampleStreamingApi();
+}
+
+void showStreamingData(std::basic_string<char> &streamevent, twitCurl *pTwitCurlObj, void *callbackData)
+{
+    std::cout
+            << "Stream Event: " << streamevent << std::endl;
+}
